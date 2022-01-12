@@ -1,0 +1,60 @@
+@import "src/shared/styles/variables";
+
+.root {
+  background-color: $whiteColor;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+}
+
+.select {
+  & :global(.ant-select-selector) {
+    padding-left: 0 !important;
+    font-size: 32px;
+    font-weight: bold;
+  }
+}
+
+.balance {
+  color: $infoColor;
+  font-size: 16px;
+}
+
+.input {
+  :global(.ant-input-group-addon) {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  :global(.ant-input) {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+  }
+}
+
+.error {
+  color: $errorColor;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.errorMessage {
+  text-align: end;
+}

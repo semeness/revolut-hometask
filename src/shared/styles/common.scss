@@ -1,0 +1,9 @@
+@import '../../../node_modules/antd/dist/antd.css';
+@import 'src/shared/styles/fonts';
+@import 'src/shared/styles/variables';
+
+body {
+  font-family: $baseFontFamily;
+  color: $baseTexColor;
+  background-color: $backgroundColor;
+}

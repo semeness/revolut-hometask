@@ -1,0 +1,8 @@
+@import 'src/shared/styles/mixins';
+
+$baseFontFamily: 'Basier Circle';
+
+@include fontFace($baseFontFamily, 'BasierCircle-Regular', normal);
+@include fontFace($baseFontFamily, 'BasierCircle-Medium', 500);
+@include fontFace($baseFontFamily, 'BasierCircle-SemiBold', 600);
+@include fontFace($baseFontFamily, 'BasierCircle-Bold', bold);
