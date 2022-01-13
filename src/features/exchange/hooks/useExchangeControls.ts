@@ -12,16 +12,15 @@ import {ChangeEvent, useEffect} from 'react';
 import { selectExchangeAction } from '../exchangeSlice';
 import { useGetCurrencyDataQuery } from 'shared/api/currencyApi';
 import {useIsSelling} from "shared/hooks/useIsSelling";
+import {getRoundedValue} from "shared/helpers/getRoundedValue";
 
-type TUseExchangeControls = {
+export type TUseExchangeControls = {
   accountName: TAccountName;
   currencyAmount?: number | string;
   onSelect: (accountName: TAccountName) => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   operationSign: string;
 };
-
-const accuracy = 100;
 
 export const useExchangeControls = (
   accountType: ExchangeAccountType,
@@ -53,7 +52,7 @@ export const useExchangeControls = (
       if (isSelling && isFirst || !isSelling && !isFirst) {
         dispatch(
             setOppositeCurrencyAmount(
-                Math.round(+currencyAmount * currencyRate * accuracy) / accuracy,
+                getRoundedValue(+currencyAmount * currencyRate),
             ),
         );
       }
@@ -63,6 +62,7 @@ export const useExchangeControls = (
   return {
     accountName,
     currencyAmount,
+    operationSign: operationSignData[exchangeAction][accountType],
     onSelect: (accountName) => {
       dispatch(setAccountName(accountName));
       dispatch(setCurrencyAmount(''));
@@ -76,16 +76,14 @@ export const useExchangeControls = (
         value.match(valueRegexp) ||
         value.match(decimalOnlyValueRegexp)
       ) {
-        const currencyAmount = +value;
 
         dispatch(setCurrencyAmount(value));
         dispatch(
           setOppositeCurrencyAmount(
-            Math.round(currencyAmount * currencyRate * accuracy) / accuracy,
+            getRoundedValue(+value * currencyRate),
           ),
         );
       }
     },
-    operationSign: operationSignData[exchangeAction][accountType],
   };
 };

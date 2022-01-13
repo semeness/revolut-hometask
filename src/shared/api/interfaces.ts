@@ -15,7 +15,7 @@ export type TCurrencyData = {
     }
 }
 
-export interface TGetLatestCurrencyParams {
+export interface TGetCurrencyDataParams {
     firstAccountName: TAccountName,
     secondAccountName: TAccountName,
 }

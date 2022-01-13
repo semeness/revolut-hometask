@@ -15,7 +15,12 @@ import { updateBalance } from 'shared/store/user/userSlice';
 import { notification } from 'antd';
 import {useIsSelling} from "../../../shared/hooks/useIsSelling";
 
-export const useExchangeHandlers = () => {
+type TUseExchangeHandlers = {
+  flipExchangeAction: () => void,
+  handleExchangeSubmit: () => void,
+}
+
+export const useExchangeHandlers = (): TUseExchangeHandlers => {
   const dispatch = useAppDispatch();
   const isSelling = useIsSelling();
   const exchangeAction = useAppSelector(selectExchangeAction);
@@ -25,7 +30,7 @@ export const useExchangeHandlers = () => {
   const secondExchangeAmount = useAppSelector(selectExchangeSecondAmount) || 0;
 
   return {
-    handleExchangeActionChange: () => {
+    flipExchangeAction: () => {
       if (exchangeAction === ExchangeActionType.buy) {
         dispatch(setExchangeAction(ExchangeActionType.sell));
       } else {
@@ -33,18 +38,20 @@ export const useExchangeHandlers = () => {
       }
     },
     handleExchangeSubmit: () => {
-      dispatch(
-        updateBalance({
-          downgrade: {
-            accountName: isSelling ? firstAccountName : secondAccountName,
-            amount: isSelling ? firstExchangeAmount : secondExchangeAmount,
-          },
-          upgrade: {
-            accountName: isSelling ? secondAccountName : firstAccountName,
-            amount: isSelling ? secondExchangeAmount : firstExchangeAmount,
-          },
-        }),
-      );
+      if (firstAccountName !== secondAccountName) {
+        dispatch(
+            updateBalance({
+              downgrade: {
+                accountName: isSelling ? firstAccountName : secondAccountName,
+                amount: isSelling ? firstExchangeAmount : secondExchangeAmount,
+              },
+              upgrade: {
+                accountName: isSelling ? secondAccountName : firstAccountName,
+                amount: isSelling ? secondExchangeAmount : firstExchangeAmount,
+              },
+            }),
+        );
+      }
 
       notification.success({
         message: 'Yeessssir!',

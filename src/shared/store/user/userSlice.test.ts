@@ -11,7 +11,7 @@ describe('user reducer', () => {
   it('should handle initial state', () => {
     expect(userReducer(undefined, { type: 'unknown' })).toEqual({
       accounts: [usd, gbp, euro],
-      balance: { USD: 5.74, GBP: 876, EUR: 3.008 },
+      balance: { USD: 5.74, GBP: 876, EUR: 3.08 },
     });
   });
 

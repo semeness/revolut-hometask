@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
 import { ExchangeActionType, TExchangeState } from './interfaces';
 import { TAccountName } from 'shared/types/Account.interface';
 import { gbp, usd } from 'shared/mocks/accaunts';
+import {TRootState} from "shared/types/store";
 
 const initialState: TExchangeState = {
   action: ExchangeActionType.sell,
@@ -42,14 +42,14 @@ export const {
   setSecondAmount,
 } = exchangeSlice.actions;
 
-export const selectExchangeAction = (state: RootState) => state.exchange.action;
-export const selectExchangeFirstAccountName = (state: RootState) =>
+export const selectExchangeAction = (state: TRootState) => state.exchange.action;
+export const selectExchangeFirstAccountName = (state: TRootState) =>
   state.exchange.firstAccountName;
-export const selectExchangeSecondAccountName = (state: RootState) =>
+export const selectExchangeSecondAccountName = (state: TRootState) =>
   state.exchange.secondAccountName;
-export const selectExchangeFirstAmount = (state: RootState) =>
+export const selectExchangeFirstAmount = (state: TRootState) =>
   state.exchange.firstAmount;
-export const selectExchangeSecondAmount = (state: RootState) =>
+export const selectExchangeSecondAmount = (state: TRootState) =>
   state.exchange.secondAmount;
 
 export default exchangeSlice.reducer;

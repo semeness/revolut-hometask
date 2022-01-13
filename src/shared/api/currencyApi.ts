@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   TCurrencyData,
   TCurrencyRate,
-  TGetLatestCurrencyParams,
+  TGetCurrencyDataParams,
 } from './interfaces';
 
 //It's only 7 days trial
@@ -13,7 +13,7 @@ export const currencyApi = createApi({
   reducerPath: 'currencyApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.fastforex.io/' }),
   endpoints: (builder) => ({
-    getCurrencyData: builder.query<TCurrencyData, TGetLatestCurrencyParams>({
+    getCurrencyData: builder.query<TCurrencyData, TGetCurrencyDataParams>({
       transformResponse: (response: TCurrencyRate, _, arg) => {
         const { firstAccountName, secondAccountName } = arg;
         const { results } = response;

@@ -29,7 +29,7 @@ import { pollingInterval } from './const';
 const Exchange = () => {
   const firstExchangeControls = useExchangeControls(ExchangeAccountType.first);
   const secondExchangeControls = useExchangeControls(ExchangeAccountType.second);
-  const { handleExchangeActionChange, handleExchangeSubmit } =
+  const { flipExchangeAction, handleExchangeSubmit } =
     useExchangeHandlers();
   const exchangeAction = useAppSelector(selectExchangeAction);
   const firstAccountName = useAppSelector(selectExchangeFirstAccountName);
@@ -37,7 +37,7 @@ const Exchange = () => {
   const firstExchangeAmount = useAppSelector(selectExchangeFirstAmount) || 0;
   const secondExchangeAmount = useAppSelector(selectExchangeSecondAmount) || 0;
   const userBalance = useAppSelector(selectUserBalance);
-  const accounts = useAppSelector(selectUserAccounts);
+  const userAccounts = useAppSelector(selectUserAccounts);
   const { data: currencyData, isLoading } = useGetCurrencyDataQuery(
     { firstAccountName, secondAccountName },
     { pollingInterval },
@@ -68,13 +68,13 @@ const Exchange = () => {
         <ExchangeControls
           {...firstExchangeControls}
           isInvalid={isFirstInvalid}
-          accounts={accounts}
+          accounts={userAccounts}
           balance={userBalance[firstAccountName]}
         />
         <div className={css.actions}>
           <Flipper
             isFlipped={exchangeAction === ExchangeActionType.buy}
-            onClick={handleExchangeActionChange}
+            onClick={flipExchangeAction}
           />
           <Button
             htmlType="submit"
@@ -89,7 +89,7 @@ const Exchange = () => {
         <ExchangeControls
           {...secondExchangeControls}
           isInvalid={isSecondInvalid}
-          accounts={accounts}
+          accounts={userAccounts}
           balance={userBalance[secondAccountName]}
         />
       </div>
